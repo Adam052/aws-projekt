@@ -1,0 +1,2075 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "VPCStack": {
+        "id": "VPCStack",
+        "path": "VPCStack",
+        "children": {
+          "IoTVPC": {
+            "id": "IoTVPC",
+            "path": "VPCStack/IoTVPC",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "VPCStack/IoTVPC/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "instanceTenancy": "default",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "VPCStack/IoTVPC"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPC",
+                  "version": "2.180.0"
+                }
+              },
+              "PrivateSubnet1": {
+                "id": "PrivateSubnet1",
+                "path": "VPCStack/IoTVPC/PrivateSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "eu-central-1a",
+                        "cidrBlock": "10.0.0.0/24",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PrivateSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PrivateSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "IoTVPCPrivateSubnet1RouteTable8A0E9A0F"
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPrivateSubnet1Subnet93560337"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "IoTVPCPublicSubnet1NATGatewayBDC81E22"
+                        },
+                        "routeTableId": {
+                          "Ref": "IoTVPCPrivateSubnet1RouteTable8A0E9A0F"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "PrivateSubnet2": {
+                "id": "PrivateSubnet2",
+                "path": "VPCStack/IoTVPC/PrivateSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "eu-central-1b",
+                        "cidrBlock": "10.0.1.0/24",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PrivateSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PrivateSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "IoTVPCPrivateSubnet2RouteTable6D038340"
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPrivateSubnet2Subnet85782120"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "VPCStack/IoTVPC/PrivateSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "IoTVPCPublicSubnet2NATGateway3D1C0433"
+                        },
+                        "routeTableId": {
+                          "Ref": "IoTVPCPrivateSubnet2RouteTable6D038340"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "PublicSubnet1": {
+                "id": "PublicSubnet1",
+                "path": "VPCStack/IoTVPC/PublicSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "eu-central-1a",
+                        "cidrBlock": "10.0.2.0/24",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "IoTVPCPublicSubnet1RouteTableDF714A3A"
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPublicSubnet1SubnetFA1B41BC"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "IoTVPCIGWCF5F5673"
+                        },
+                        "routeTableId": {
+                          "Ref": "IoTVPCPublicSubnet1RouteTableDF714A3A"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "VPCStack/IoTVPC/PublicSubnet1/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "IoTVPCPublicSubnet1EIP4F4CBD7C",
+                            "AllocationId"
+                          ]
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPublicSubnet1SubnetFA1B41BC"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "PublicSubnet2": {
+                "id": "PublicSubnet2",
+                "path": "VPCStack/IoTVPC/PublicSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "eu-central-1b",
+                        "cidrBlock": "10.0.3.0/24",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "IoTVPC8B2E4583"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "IoTVPCPublicSubnet2RouteTableE8A1AD8E"
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPublicSubnet2Subnet7EF35C1A"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "IoTVPCIGWCF5F5673"
+                        },
+                        "routeTableId": {
+                          "Ref": "IoTVPCPublicSubnet2RouteTableE8A1AD8E"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "VPCStack/IoTVPC/PublicSubnet2/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "IoTVPCPublicSubnet2EIPBF1E12E5",
+                            "AllocationId"
+                          ]
+                        },
+                        "subnetId": {
+                          "Ref": "IoTVPCPublicSubnet2Subnet7EF35C1A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "VPCStack/IoTVPC/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "IGW": {
+                "id": "IGW",
+                "path": "VPCStack/IoTVPC/IGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "VPCStack/IoTVPC"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInternetGateway",
+                  "version": "2.180.0"
+                }
+              },
+              "VPCGW": {
+                "id": "VPCGW",
+                "path": "VPCStack/IoTVPC/VPCGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "internetGatewayId": {
+                      "Ref": "IoTVPCIGWCF5F5673"
+                    },
+                    "vpcId": {
+                      "Ref": "IoTVPC8B2E4583"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPCGatewayAttachment",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Vpc",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "VPCId": {
+            "id": "VPCId",
+            "path": "VPCStack/VPCId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "PrivateSubnet1Id": {
+            "id": "PrivateSubnet1Id",
+            "path": "VPCStack/PrivateSubnet1Id",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "PrivateSubnet2Id": {
+            "id": "PrivateSubnet2Id",
+            "path": "VPCStack/PrivateSubnet2Id",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "VPCStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "VPCStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "VPCStack/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"IoTVPC8B2E4583\",\"CidrBlock\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"IoTVPC8B2E4583\",\"CidrBlock\"]}",
+                "path": "VPCStack/Exports/Output{\"Fn::GetAtt\":[\"IoTVPC8B2E4583\",\"CidrBlock\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Ref\":\"IoTVPC8B2E4583\"}": {
+                "id": "Output{\"Ref\":\"IoTVPC8B2E4583\"}",
+                "path": "VPCStack/Exports/Output{\"Ref\":\"IoTVPC8B2E4583\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Ref\":\"IoTVPCPrivateSubnet1Subnet93560337\"}": {
+                "id": "Output{\"Ref\":\"IoTVPCPrivateSubnet1Subnet93560337\"}",
+                "path": "VPCStack/Exports/Output{\"Ref\":\"IoTVPCPrivateSubnet1Subnet93560337\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Ref\":\"IoTVPCPrivateSubnet2Subnet85782120\"}": {
+                "id": "Output{\"Ref\":\"IoTVPCPrivateSubnet2Subnet85782120\"}",
+                "path": "VPCStack/Exports/Output{\"Ref\":\"IoTVPCPrivateSubnet2Subnet85782120\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Ref\":\"IoTVPCPublicSubnet1SubnetFA1B41BC\"}": {
+                "id": "Output{\"Ref\":\"IoTVPCPublicSubnet1SubnetFA1B41BC\"}",
+                "path": "VPCStack/Exports/Output{\"Ref\":\"IoTVPCPublicSubnet1SubnetFA1B41BC\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "VPCStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.180.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "VPCStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.180.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.180.0"
+        }
+      },
+      "MSKStack": {
+        "id": "MSKStack",
+        "path": "MSKStack",
+        "children": {
+          "MSKSecurityGroup": {
+            "id": "MSKSecurityGroup",
+            "path": "MSKStack/MSKSecurityGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "MSKStack/MSKSecurityGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "Security group for MSK cluster",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputFnGetAttIoTVPC8B2E4583CidrBlock7473E369"
+                        },
+                        "ipProtocol": "tcp",
+                        "fromPort": 9092,
+                        "toPort": 9092,
+                        "description": "Allow inbound from EC2 plaintext"
+                      },
+                      {
+                        "cidrIp": {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputFnGetAttIoTVPC8B2E4583CidrBlock7473E369"
+                        },
+                        "ipProtocol": "tcp",
+                        "fromPort": 9094,
+                        "toPort": 9094,
+                        "description": "Allow inbound from EC2 TLS"
+                      },
+                      {
+                        "cidrIp": {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputFnGetAttIoTVPC8B2E4583CidrBlock7473E369"
+                        },
+                        "ipProtocol": "tcp",
+                        "fromPort": 9096,
+                        "toPort": 9096,
+                        "description": "Allow inbound from EC2 SASL"
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "MSK-SecurityGroup"
+                      }
+                    ],
+                    "vpcId": {
+                      "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPC8B2E45835BD75DDA"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "MSKCluster": {
+            "id": "MSKCluster",
+            "path": "MSKStack/MSKCluster",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "MSKStack/MSKCluster/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::MSK::Cluster",
+                  "aws:cdk:cloudformation:props": {
+                    "brokerNodeGroupInfo": {
+                      "instanceType": "kafka.t3.small",
+                      "clientSubnets": [
+                        {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPrivateSubnet1Subnet93560337C621C750"
+                        },
+                        {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPrivateSubnet2Subnet857821200B67304C"
+                        }
+                      ],
+                      "securityGroups": [
+                        {
+                          "Fn::GetAtt": [
+                            "MSKSecurityGroupB5009346",
+                            "GroupId"
+                          ]
+                        }
+                      ],
+                      "storageInfo": {
+                        "ebsStorageInfo": {
+                          "volumeSize": 1000
+                        }
+                      }
+                    },
+                    "clusterName": "msk-mskstack",
+                    "encryptionInfo": {
+                      "encryptionInTransit": {
+                        "clientBroker": "TLS",
+                        "inCluster": true
+                      }
+                    },
+                    "kafkaVersion": "2.8.1",
+                    "loggingInfo": {
+                      "brokerLogs": {
+                        "cloudWatchLogs": {
+                          "enabled": false
+                        },
+                        "firehose": {
+                          "enabled": false
+                        },
+                        "s3": {
+                          "enabled": false
+                        }
+                      }
+                    },
+                    "numberOfBrokerNodes": 4
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_msk.CfnCluster",
+                  "version": "2.180.0"
+                }
+              },
+              "BootstrapBrokersBootstrapBrokerStringTls": {
+                "id": "BootstrapBrokersBootstrapBrokerStringTls",
+                "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls",
+                "children": {
+                  "Provider": {
+                    "id": "Provider",
+                    "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls/Provider",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.SingletonFunction",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls/Resource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls/Resource/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.180.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CustomResource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "CustomResourcePolicy": {
+                    "id": "CustomResourcePolicy",
+                    "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls/CustomResourcePolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "MSKStack/MSKCluster/BootstrapBrokersBootstrapBrokerStringTls/CustomResourcePolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "kafka:GetBootstrapBrokers",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Ref": "MSKCluster4E6A46C2"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "MSKClusterBootstrapBrokersBootstrapBrokerStringTlsCustomResourcePolicyD51836A8",
+                            "roles": [
+                              {
+                                "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.180.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.custom_resources.AwsCustomResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-msk-alpha.Cluster",
+              "version": "2.180.0-alpha.0",
+              "metadata": []
+            }
+          },
+          "AWS679f53fac002430cb0da5b7982bd2287": {
+            "id": "AWS679f53fac002430cb0da5b7982bd2287",
+            "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.180.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.180.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.180.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "MSKStack/AWS679f53fac002430cb0da5b7982bd2287/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-412381744865-eu-central-1",
+                      "s3Key": "4cd2f2411231aa073e609dc99a49b5c5e974252bf9abf0f9350d237d17cce8be.zip"
+                    },
+                    "handler": "index.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs20.x",
+                    "timeout": 120
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "MSKClusterArn": {
+            "id": "MSKClusterArn",
+            "path": "MSKStack/MSKClusterArn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "MSKBootstrapBrokers": {
+            "id": "MSKBootstrapBrokers",
+            "path": "MSKStack/MSKBootstrapBrokers",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "BootstrapBrokersTls": {
+            "id": "BootstrapBrokersTls",
+            "path": "MSKStack/BootstrapBrokersTls",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "MSKStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "MSKStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "MSKStack/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"MSKSecurityGroupB5009346\",\"GroupId\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"MSKSecurityGroupB5009346\",\"GroupId\"]}",
+                "path": "MSKStack/Exports/Output{\"Fn::GetAtt\":[\"MSKSecurityGroupB5009346\",\"GroupId\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"MSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83\",\"BootstrapBrokerStringTls\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"MSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83\",\"BootstrapBrokerStringTls\"]}",
+                "path": "MSKStack/Exports/Output{\"Fn::GetAtt\":[\"MSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83\",\"BootstrapBrokerStringTls\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              },
+              "Output{\"Ref\":\"MSKCluster4E6A46C2\"}": {
+                "id": "Output{\"Ref\":\"MSKCluster4E6A46C2\"}",
+                "path": "MSKStack/Exports/Output{\"Ref\":\"MSKCluster4E6A46C2\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "MSKStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.180.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "MSKStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.180.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.180.0"
+        }
+      },
+      "S3Stack": {
+        "id": "S3Stack",
+        "path": "S3Stack",
+        "children": {
+          "IoTDataBucket": {
+            "id": "IoTDataBucket",
+            "path": "S3Stack/IoTDataBucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "S3Stack/IoTDataBucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "iot-data-412381744865-eu-central-1",
+                    "lifecycleConfiguration": {
+                      "rules": [
+                        {
+                          "expirationInDays": 30,
+                          "status": "Enabled"
+                        }
+                      ]
+                    },
+                    "tags": [
+                      {
+                        "key": "aws-cdk:auto-delete-objects",
+                        "value": "true"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.180.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "S3Stack/IoTDataBucket/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "S3Stack/IoTDataBucket/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "IoTDataBucketE8A730B3"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:PutBucketPolicy",
+                                "s3:GetBucket*",
+                                "s3:List*",
+                                "s3:DeleteObject*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::GetAtt": [
+                                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "IoTDataBucketE8A730B3",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "IoTDataBucketE8A730B3",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "AutoDeleteObjectsCustomResource": {
+                "id": "AutoDeleteObjectsCustomResource",
+                "path": "S3Stack/IoTDataBucket/AutoDeleteObjectsCustomResource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "S3Stack/IoTDataBucket/AutoDeleteObjectsCustomResource/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "S3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "S3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.180.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "S3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "S3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResourceProviderBase",
+              "version": "2.180.0"
+            }
+          },
+          "BucketName": {
+            "id": "BucketName",
+            "path": "S3Stack/BucketName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "S3Stack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "S3Stack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "S3Stack/Exports",
+            "children": {
+              "Output{\"Ref\":\"IoTDataBucketE8A730B3\"}": {
+                "id": "Output{\"Ref\":\"IoTDataBucketE8A730B3\"}",
+                "path": "S3Stack/Exports/Output{\"Ref\":\"IoTDataBucketE8A730B3\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "S3Stack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.180.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "S3Stack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.180.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.180.0"
+        }
+      },
+      "EC2Stack": {
+        "id": "EC2Stack",
+        "path": "EC2Stack",
+        "children": {
+          "AppCode": {
+            "id": "AppCode",
+            "path": "EC2Stack/AppCode",
+            "children": {
+              "Stage": {
+                "id": "Stage",
+                "path": "EC2Stack/AppCode/Stage",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.180.0"
+                }
+              },
+              "AssetBucket": {
+                "id": "AssetBucket",
+                "path": "EC2Stack/AppCode/AssetBucket",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+              "version": "2.180.0"
+            }
+          },
+          "EC2Role": {
+            "id": "EC2Role",
+            "path": "EC2Stack/EC2Role",
+            "children": {
+              "ImportEC2Role": {
+                "id": "ImportEC2Role",
+                "path": "EC2Stack/EC2Role/ImportEC2Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "EC2Stack/EC2Role/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "ec2.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AWSIoTFullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonMSKFullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/EC2InstanceConnect"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonS3FullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonBedrockFullAccess"
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.180.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "EC2Stack/EC2Role/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EC2Stack/EC2Role/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:GetObject*",
+                                "s3:GetBucket*",
+                                "s3:List*"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":s3:::cdk-hnb659fds-assets-412381744865-eu-central-1"
+                                    ]
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":s3:::cdk-hnb659fds-assets-412381744865-eu-central-1/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "kafka:ListClusters",
+                                "kafka:GetBootstrapBrokers",
+                                "s3:PutObject",
+                                "s3:GetObject",
+                                "s3:ListBucket"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                "arn:aws:kafka:eu-central-1:412381744865:cluster/*",
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:s3:::",
+                                      {
+                                        "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+                                      }
+                                    ]
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:s3:::",
+                                      {
+                                        "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "EC2RoleDefaultPolicy64E44857",
+                        "roles": [
+                          {
+                            "Ref": "EC2RoleF978FC1C"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.180.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.180.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "SecurityGroup": {
+            "id": "SecurityGroup",
+            "path": "EC2Stack/SecurityGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EC2Stack/SecurityGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "Security group for EC2 instances",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 22,
+                        "toPort": 22,
+                        "description": "Allow SSH access from anywhere"
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "EC2-SecurityGroup"
+                      }
+                    ],
+                    "vpcId": {
+                      "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPC8B2E45835BD75DDA"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.180.0"
+                }
+              },
+              "MSKStackMSKSecurityGroup018B5B39:9094 to": {
+                "id": "MSKStackMSKSecurityGroup018B5B39:9094 to",
+                "path": "EC2Stack/SecurityGroup/MSKStackMSKSecurityGroup018B5B39:9094 to",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "description": "Allow outbound to MSK TLS",
+                    "fromPort": 9094,
+                    "groupId": {
+                      "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKSecurityGroupB5009346GroupIdBBBA6F75"
+                    },
+                    "ipProtocol": "tcp",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "SecurityGroupDD263621",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 9094
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "PublisherInstance": {
+            "id": "PublisherInstance",
+            "path": "EC2Stack/PublisherInstance",
+            "children": {
+              "InstanceProfile": {
+                "id": "InstanceProfile",
+                "path": "EC2Stack/PublisherInstance/InstanceProfile",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
+                  "aws:cdk:cloudformation:props": {
+                    "roles": [
+                      {
+                        "Ref": "EC2RoleF978FC1C"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
+                  "version": "2.180.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "EC2Stack/PublisherInstance/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+                  "aws:cdk:cloudformation:props": {
+                    "availabilityZone": "eu-central-1a",
+                    "iamInstanceProfile": {
+                      "Ref": "PublisherInstanceInstanceProfile424A6435"
+                    },
+                    "imageId": {
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+                    },
+                    "instanceType": "t3.micro",
+                    "networkInterfaces": [
+                      {
+                        "deviceIndex": "0",
+                        "associatePublicIpAddress": true,
+                        "subnetId": {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPublicSubnet1SubnetFA1B41BCB9589F81"
+                        },
+                        "groupSet": [
+                          {
+                            "Fn::GetAtt": [
+                              "SecurityGroupDD263621",
+                              "GroupId"
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "EC2Stack/PublisherInstance"
+                      }
+                    ],
+                    "userData": {
+                      "Fn::Base64": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "#!/bin/bash\nset -ex\nexec > >(tee -a /var/log/user-data.log /var/log/cloud-init-output.log) 2>&1\necho 'Starting user-data script...'\nfunction error_exit() {\n  echo \"ERROR: $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  echo \"Deployment failed\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n  exit 1\n}\nfunction log() {\n  echo \"$(date '+%Y-%m-%d %H:%M:%S'): $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n}\nlog 'Installing required packages...'\nyum install -y python3-pip git unzip java-11-amazon-corretto || error_exit 'Failed to install required packages'\nlog 'Installing Kafka tools...'\nKAFKA_VERSION=2.8.1\ncurl -O https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to download Kafka'\ntar -xzf kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to extract Kafka'\nmv kafka_2.13-${KAFKA_VERSION} /opt/kafka || error_exit 'Failed to move Kafka'\nrm kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to cleanup Kafka archive'\necho 'export PATH=$PATH:/opt/kafka/bin' >> /etc/profile.d/kafka.sh || error_exit 'Failed to set Kafka PATH'\nsource /etc/profile.d/kafka.sh || error_exit 'Failed to reload PATH'\nlog 'Installing Poetry...'\npython3 -m pip install --user poetry || error_exit 'Failed to install poetry'\nlog 'Creating app directory...'\nmkdir -p /opt/iot-app || error_exit 'Failed to create app directory'\ncd /opt/iot-app || error_exit 'Failed to change directory'\nlog 'Downloading app code...'\naws s3 cp s3://cdk-hnb659fds-assets-412381744865-eu-central-1/a5f27b703d208914fa378c3a766c71aa893ece5de23025afa63170d1861179fd.zip app.zip || error_exit 'Failed to download app code'\nunzip -o app.zip || error_exit 'Failed to unzip app code'\nlog 'Installing dependencies...'\ncd /opt/iot-app || error_exit 'Failed to change directory'\n/root/.local/bin/poetry env use python3 || error_exit 'Failed to set Python version'\n/root/.local/bin/poetry install --no-interaction || error_exit 'Failed to install dependencies'\necho 'MSK brokers: ",
+                            {
+                              "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+                            },
+                            "' >> /var/log/user-data.log\nlog 'Creating log file...'\ntouch /var/log/iot-publisher.log || error_exit 'Failed to create log file'\nchown root:root /var/log/iot-publisher.log || error_exit 'Failed to set log file permissions'\nchmod 644 /var/log/iot-publisher.log || error_exit 'Failed to set log file permissions'\ncat > /etc/systemd/system/iot-publisher.service << EOF || error_exit 'Failed to create service file'\n[Unit]\nDescription=IoT Publisher Service\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/opt/iot-app\nEnvironment=\"AWS_REGION=eu-central-1\"\nEnvironment=\"MSK_CLUSTER_ARN=",
+                            {
+                              "Fn::ImportValue": "MSKStack:ExportsOutputRefMSKCluster4E6A46C2CDCE4B06"
+                            },
+                            "\"\nEnvironment=\"MSK_BOOTSTRAP_BROKERS=",
+                            {
+                              "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+                            },
+                            "\"\nStandardOutput=journal+append:/var/log/iot-publisher.log\nStandardError=journal+append:/var/log/iot-publisher.log\nEnvironment=\"PATH=/root/.local/bin:$PATH\"\nExecStart=/root/.local/bin/poetry run python iot/publisher/main.py\nRestart=always\nUser=root\n\n[Install]\nWantedBy=multi-user.target\nEOF\necho 'Service file contents:' >> /var/log/user-data.log\ncat /etc/systemd/system/iot-publisher.service >> /var/log/user-data.log\nlog 'Setting permissions...'\nchown -R root:root /opt/iot-app || error_exit 'Failed to set permissions'\nlog 'Starting service...'\nsystemctl daemon-reload || error_exit 'Failed to reload systemd'\nsystemctl enable iot-publisher || error_exit 'Failed to enable service'\nsystemctl start iot-publisher || error_exit 'Failed to start service'\nlog 'Verifying service status...'\nsystemctl is-active iot-publisher || error_exit 'Service not running'\nlog 'User-data script completed successfully'"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInstance",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Instance",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "EC2Stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.180.0"
+            }
+          },
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "EC2Stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "SubscriberInstance": {
+            "id": "SubscriberInstance",
+            "path": "EC2Stack/SubscriberInstance",
+            "children": {
+              "InstanceProfile": {
+                "id": "InstanceProfile",
+                "path": "EC2Stack/SubscriberInstance/InstanceProfile",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
+                  "aws:cdk:cloudformation:props": {
+                    "roles": [
+                      {
+                        "Ref": "EC2RoleF978FC1C"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
+                  "version": "2.180.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "EC2Stack/SubscriberInstance/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+                  "aws:cdk:cloudformation:props": {
+                    "availabilityZone": "eu-central-1a",
+                    "iamInstanceProfile": {
+                      "Ref": "SubscriberInstanceInstanceProfile7057221F"
+                    },
+                    "imageId": {
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+                    },
+                    "instanceType": "t3.micro",
+                    "networkInterfaces": [
+                      {
+                        "deviceIndex": "0",
+                        "associatePublicIpAddress": true,
+                        "subnetId": {
+                          "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPublicSubnet1SubnetFA1B41BCB9589F81"
+                        },
+                        "groupSet": [
+                          {
+                            "Fn::GetAtt": [
+                              "SecurityGroupDD263621",
+                              "GroupId"
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "EC2Stack/SubscriberInstance"
+                      }
+                    ],
+                    "userData": {
+                      "Fn::Base64": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "#!/bin/bash\n#!/bin/bash\nset -ex\nexec > >(tee -a /var/log/user-data.log /var/log/cloud-init-output.log) 2>&1\necho 'Starting user-data script...'\nfunction error_exit() {\n  echo \"ERROR: $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  echo \"Deployment failed\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n  exit 1\n}\nfunction log() {\n  echo \"$(date '+%Y-%m-%d %H:%M:%S'): $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n}\nlog 'Installing required packages...'\nyum install -y python3-pip git unzip java-11-amazon-corretto || error_exit 'Failed to install required packages'\nlog 'Installing Kafka tools...'\nKAFKA_VERSION=2.8.1\ncurl -O https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to download Kafka'\ntar -xzf kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to extract Kafka'\nmv kafka_2.13-${KAFKA_VERSION} /opt/kafka || error_exit 'Failed to move Kafka'\nrm kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to cleanup Kafka archive'\necho 'export PATH=$PATH:/opt/kafka/bin' >> /etc/profile.d/kafka.sh || error_exit 'Failed to set Kafka PATH'\nsource /etc/profile.d/kafka.sh || error_exit 'Failed to reload PATH'\nlog 'Installing Poetry...'\npython3 -m pip install --user poetry || error_exit 'Failed to install poetry'\nlog 'Creating app directory...'\nmkdir -p /opt/iot-app || error_exit 'Failed to create app directory'\ncd /opt/iot-app || error_exit 'Failed to change directory'\nlog 'Downloading app code...'\naws s3 cp s3://cdk-hnb659fds-assets-412381744865-eu-central-1/a5f27b703d208914fa378c3a766c71aa893ece5de23025afa63170d1861179fd.zip app.zip || error_exit 'Failed to download app code'\nunzip -o app.zip || error_exit 'Failed to unzip app code'\nlog 'Installing dependencies...'\ncd /opt/iot-app || error_exit 'Failed to change directory'\n/root/.local/bin/poetry env use python3 || error_exit 'Failed to set Python version'\n/root/.local/bin/poetry install --no-interaction || error_exit 'Failed to install dependencies'\nlog 'Creating log files...'\ntouch /var/log/iot-subscriber.log || error_exit 'Failed to create log file'\nchown root:root /var/log/iot-subscriber.log || error_exit 'Failed to set log file permissions'\nchmod 644 /var/log/iot-subscriber.log || error_exit 'Failed to set log file permissions'\ncat > /etc/systemd/system/iot-subscriber.service << EOF || error_exit 'Failed to create service file'\n[Unit]\nDescription=IoT Subscriber Service\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/opt/iot-app\nEnvironment=\"AWS_REGION=eu-central-1\"\nEnvironment=\"MSK_CLUSTER_ARN=",
+                            {
+                              "Fn::ImportValue": "MSKStack:ExportsOutputRefMSKCluster4E6A46C2CDCE4B06"
+                            },
+                            "\"\nEnvironment=\"S3_BUCKET_NAME=",
+                            {
+                              "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+                            },
+                            "\"\nEnvironment=\"MSK_BOOTSTRAP_BROKERS=",
+                            {
+                              "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+                            },
+                            "\"\nStandardOutput=append:/var/log/iot-subscriber.log\nStandardError=append:/var/log/iot-subscriber.log\nEnvironment=\"PATH=/root/.local/bin:$PATH\"\nExecStart=/root/.local/bin/poetry run python iot/subscriber/main.py\nRestart=always\nRestartSec=10\nStartLimitInterval=0\nUser=root\n\n[Install]\nWantedBy=multi-user.target\nEOF\nlog 'Setting permissions...'\nchown -R root:root /opt/iot-app || error_exit 'Failed to set permissions'\nlog 'Starting service...'\nsystemctl daemon-reload || error_exit 'Failed to reload systemd'\nsystemctl enable iot-subscriber || error_exit 'Failed to enable service'\nsystemctl start iot-subscriber || error_exit 'Failed to start service'\nlog 'Verifying service status...'\nsystemctl is-active iot-subscriber || error_exit 'Service not running'\nlog 'User-data script completed successfully'"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInstance",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Instance",
+              "version": "2.180.0",
+              "metadata": []
+            }
+          },
+          "PublisherInstanceId": {
+            "id": "PublisherInstanceId",
+            "path": "EC2Stack/PublisherInstanceId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "PublisherPublicIP": {
+            "id": "PublisherPublicIP",
+            "path": "EC2Stack/PublisherPublicIP",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "PublisherPrivateIP": {
+            "id": "PublisherPrivateIP",
+            "path": "EC2Stack/PublisherPrivateIP",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "SubscriberInstanceId": {
+            "id": "SubscriberInstanceId",
+            "path": "EC2Stack/SubscriberInstanceId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "SubscriberPublicIP": {
+            "id": "SubscriberPublicIP",
+            "path": "EC2Stack/SubscriberPublicIP",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "ConnectPublisherCommand": {
+            "id": "ConnectPublisherCommand",
+            "path": "EC2Stack/ConnectPublisherCommand",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "ConnectSubscriberCommand": {
+            "id": "ConnectSubscriberCommand",
+            "path": "EC2Stack/ConnectSubscriberCommand",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.180.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "EC2Stack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "EC2Stack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.180.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.57"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "EC2Stack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.180.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "EC2Stack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.180.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.180.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.57"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.180.0"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "iot-data-analysis"
+version = "0.1.0"
+description = "Projekt automatyzacji infrastruktury do analizy danych IoT wykorzystujący usługi AWS"
+authors = ["Your Name <your.email@example.com>"]
+
+packages = [
+    { include = "iot" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aws-cdk-lib = "^2.124.0"
+constructs = "^10.0.0"
+boto3 = "^1.34.0"
+confluent-kafka = {extras = ["admin"], version = "2.8.0"}
+opensearch-py = "^2.4.2"
+requests-aws4auth = "^1.2.3"
+python-dotenv = "^1.0.0"
+aws-cdk-aws-msk-alpha = "^2.0.0"
+aws-cdk-aws-iot-alpha = "^2.124.0-alpha.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+black = "^23.12.1"
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true

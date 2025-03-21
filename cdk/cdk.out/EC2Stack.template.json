@@ -1,0 +1,514 @@
+{
+ "Resources": {
+  "EC2RoleF978FC1C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AWSIoTFullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonMSKFullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/EC2InstanceConnect"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonS3FullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonBedrockFullAccess"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/EC2Role/Resource"
+   }
+  },
+  "EC2RoleDefaultPolicy64E44857": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::cdk-hnb659fds-assets-412381744865-eu-central-1"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::cdk-hnb659fds-assets-412381744865-eu-central-1/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "kafka:ListClusters",
+        "kafka:GetBootstrapBrokers",
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:kafka:eu-central-1:412381744865:cluster/*",
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+           }
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EC2RoleDefaultPolicy64E44857",
+    "Roles": [
+     {
+      "Ref": "EC2RoleF978FC1C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/EC2Role/DefaultPolicy/Resource"
+   }
+  },
+  "SecurityGroupDD263621": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for EC2 instances",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow SSH access from anywhere",
+      "FromPort": 22,
+      "IpProtocol": "tcp",
+      "ToPort": 22
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2-SecurityGroup"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPC8B2E45835BD75DDA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/SecurityGroup/Resource"
+   }
+  },
+  "SecurityGroupMSKStackMSKSecurityGroup018B5B399094to4D0EF5DC": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow outbound to MSK TLS",
+    "FromPort": 9094,
+    "GroupId": {
+     "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKSecurityGroupB5009346GroupIdBBBA6F75"
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "SecurityGroupDD263621",
+      "GroupId"
+     ]
+    },
+    "ToPort": 9094
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/SecurityGroup/MSKStackMSKSecurityGroup018B5B39:9094 to"
+   }
+  },
+  "PublisherInstanceInstanceProfile424A6435": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "EC2RoleF978FC1C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/PublisherInstance/InstanceProfile"
+   }
+  },
+  "PublisherInstanceB7D10218": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": "eu-central-1a",
+    "IamInstanceProfile": {
+     "Ref": "PublisherInstanceInstanceProfile424A6435"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "NetworkInterfaces": [
+     {
+      "AssociatePublicIpAddress": true,
+      "DeviceIndex": "0",
+      "GroupSet": [
+       {
+        "Fn::GetAtt": [
+         "SecurityGroupDD263621",
+         "GroupId"
+        ]
+       }
+      ],
+      "SubnetId": {
+       "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPublicSubnet1SubnetFA1B41BCB9589F81"
+      }
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2Stack/PublisherInstance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": {
+      "Fn::Join": [
+       "",
+       [
+        "#!/bin/bash\nset -ex\nexec > >(tee -a /var/log/user-data.log /var/log/cloud-init-output.log) 2>&1\necho 'Starting user-data script...'\nfunction error_exit() {\n  echo \"ERROR: $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  echo \"Deployment failed\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n  exit 1\n}\nfunction log() {\n  echo \"$(date '+%Y-%m-%d %H:%M:%S'): $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n}\nlog 'Installing required packages...'\nyum install -y python3-pip git unzip java-11-amazon-corretto || error_exit 'Failed to install required packages'\nlog 'Installing Kafka tools...'\nKAFKA_VERSION=2.8.1\ncurl -O https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to download Kafka'\ntar -xzf kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to extract Kafka'\nmv kafka_2.13-${KAFKA_VERSION} /opt/kafka || error_exit 'Failed to move Kafka'\nrm kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to cleanup Kafka archive'\necho 'export PATH=$PATH:/opt/kafka/bin' >> /etc/profile.d/kafka.sh || error_exit 'Failed to set Kafka PATH'\nsource /etc/profile.d/kafka.sh || error_exit 'Failed to reload PATH'\nlog 'Installing Poetry...'\npython3 -m pip install --user poetry || error_exit 'Failed to install poetry'\nlog 'Creating app directory...'\nmkdir -p /opt/iot-app || error_exit 'Failed to create app directory'\ncd /opt/iot-app || error_exit 'Failed to change directory'\nlog 'Downloading app code...'\naws s3 cp s3://cdk-hnb659fds-assets-412381744865-eu-central-1/a5f27b703d208914fa378c3a766c71aa893ece5de23025afa63170d1861179fd.zip app.zip || error_exit 'Failed to download app code'\nunzip -o app.zip || error_exit 'Failed to unzip app code'\nlog 'Installing dependencies...'\ncd /opt/iot-app || error_exit 'Failed to change directory'\n/root/.local/bin/poetry env use python3 || error_exit 'Failed to set Python version'\n/root/.local/bin/poetry install --no-interaction || error_exit 'Failed to install dependencies'\necho 'MSK brokers: ",
+        {
+         "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+        },
+        "' >> /var/log/user-data.log\nlog 'Creating log file...'\ntouch /var/log/iot-publisher.log || error_exit 'Failed to create log file'\nchown root:root /var/log/iot-publisher.log || error_exit 'Failed to set log file permissions'\nchmod 644 /var/log/iot-publisher.log || error_exit 'Failed to set log file permissions'\ncat > /etc/systemd/system/iot-publisher.service << EOF || error_exit 'Failed to create service file'\n[Unit]\nDescription=IoT Publisher Service\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/opt/iot-app\nEnvironment=\"AWS_REGION=eu-central-1\"\nEnvironment=\"MSK_CLUSTER_ARN=",
+        {
+         "Fn::ImportValue": "MSKStack:ExportsOutputRefMSKCluster4E6A46C2CDCE4B06"
+        },
+        "\"\nEnvironment=\"MSK_BOOTSTRAP_BROKERS=",
+        {
+         "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+        },
+        "\"\nStandardOutput=journal+append:/var/log/iot-publisher.log\nStandardError=journal+append:/var/log/iot-publisher.log\nEnvironment=\"PATH=/root/.local/bin:$PATH\"\nExecStart=/root/.local/bin/poetry run python iot/publisher/main.py\nRestart=always\nUser=root\n\n[Install]\nWantedBy=multi-user.target\nEOF\necho 'Service file contents:' >> /var/log/user-data.log\ncat /etc/systemd/system/iot-publisher.service >> /var/log/user-data.log\nlog 'Setting permissions...'\nchown -R root:root /opt/iot-app || error_exit 'Failed to set permissions'\nlog 'Starting service...'\nsystemctl daemon-reload || error_exit 'Failed to reload systemd'\nsystemctl enable iot-publisher || error_exit 'Failed to enable service'\nsystemctl start iot-publisher || error_exit 'Failed to start service'\nlog 'Verifying service status...'\nsystemctl is-active iot-publisher || error_exit 'Service not running'\nlog 'User-data script completed successfully'"
+       ]
+      ]
+     }
+    }
+   },
+   "DependsOn": [
+    "EC2RoleDefaultPolicy64E44857",
+    "EC2RoleF978FC1C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/PublisherInstance/Resource"
+   }
+  },
+  "SubscriberInstanceInstanceProfile7057221F": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "EC2RoleF978FC1C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/SubscriberInstance/InstanceProfile"
+   }
+  },
+  "SubscriberInstanceA7D92F33": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": "eu-central-1a",
+    "IamInstanceProfile": {
+     "Ref": "SubscriberInstanceInstanceProfile7057221F"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "NetworkInterfaces": [
+     {
+      "AssociatePublicIpAddress": true,
+      "DeviceIndex": "0",
+      "GroupSet": [
+       {
+        "Fn::GetAtt": [
+         "SecurityGroupDD263621",
+         "GroupId"
+        ]
+       }
+      ],
+      "SubnetId": {
+       "Fn::ImportValue": "VPCStack:ExportsOutputRefIoTVPCPublicSubnet1SubnetFA1B41BCB9589F81"
+      }
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2Stack/SubscriberInstance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": {
+      "Fn::Join": [
+       "",
+       [
+        "#!/bin/bash\n#!/bin/bash\nset -ex\nexec > >(tee -a /var/log/user-data.log /var/log/cloud-init-output.log) 2>&1\necho 'Starting user-data script...'\nfunction error_exit() {\n  echo \"ERROR: $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  echo \"Deployment failed\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n  exit 1\n}\nfunction log() {\n  echo \"$(date '+%Y-%m-%d %H:%M:%S'): $1\" | tee -a /var/log/user-data.log /var/log/cloud-init-output.log\n  sync\n}\nlog 'Installing required packages...'\nyum install -y python3-pip git unzip java-11-amazon-corretto || error_exit 'Failed to install required packages'\nlog 'Installing Kafka tools...'\nKAFKA_VERSION=2.8.1\ncurl -O https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to download Kafka'\ntar -xzf kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to extract Kafka'\nmv kafka_2.13-${KAFKA_VERSION} /opt/kafka || error_exit 'Failed to move Kafka'\nrm kafka_2.13-${KAFKA_VERSION}.tgz || error_exit 'Failed to cleanup Kafka archive'\necho 'export PATH=$PATH:/opt/kafka/bin' >> /etc/profile.d/kafka.sh || error_exit 'Failed to set Kafka PATH'\nsource /etc/profile.d/kafka.sh || error_exit 'Failed to reload PATH'\nlog 'Installing Poetry...'\npython3 -m pip install --user poetry || error_exit 'Failed to install poetry'\nlog 'Creating app directory...'\nmkdir -p /opt/iot-app || error_exit 'Failed to create app directory'\ncd /opt/iot-app || error_exit 'Failed to change directory'\nlog 'Downloading app code...'\naws s3 cp s3://cdk-hnb659fds-assets-412381744865-eu-central-1/a5f27b703d208914fa378c3a766c71aa893ece5de23025afa63170d1861179fd.zip app.zip || error_exit 'Failed to download app code'\nunzip -o app.zip || error_exit 'Failed to unzip app code'\nlog 'Installing dependencies...'\ncd /opt/iot-app || error_exit 'Failed to change directory'\n/root/.local/bin/poetry env use python3 || error_exit 'Failed to set Python version'\n/root/.local/bin/poetry install --no-interaction || error_exit 'Failed to install dependencies'\nlog 'Creating log files...'\ntouch /var/log/iot-subscriber.log || error_exit 'Failed to create log file'\nchown root:root /var/log/iot-subscriber.log || error_exit 'Failed to set log file permissions'\nchmod 644 /var/log/iot-subscriber.log || error_exit 'Failed to set log file permissions'\ncat > /etc/systemd/system/iot-subscriber.service << EOF || error_exit 'Failed to create service file'\n[Unit]\nDescription=IoT Subscriber Service\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/opt/iot-app\nEnvironment=\"AWS_REGION=eu-central-1\"\nEnvironment=\"MSK_CLUSTER_ARN=",
+        {
+         "Fn::ImportValue": "MSKStack:ExportsOutputRefMSKCluster4E6A46C2CDCE4B06"
+        },
+        "\"\nEnvironment=\"S3_BUCKET_NAME=",
+        {
+         "Fn::ImportValue": "S3Stack:ExportsOutputRefIoTDataBucketE8A730B31A2D7B27"
+        },
+        "\"\nEnvironment=\"MSK_BOOTSTRAP_BROKERS=",
+        {
+         "Fn::ImportValue": "MSKStack:ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC"
+        },
+        "\"\nStandardOutput=append:/var/log/iot-subscriber.log\nStandardError=append:/var/log/iot-subscriber.log\nEnvironment=\"PATH=/root/.local/bin:$PATH\"\nExecStart=/root/.local/bin/poetry run python iot/subscriber/main.py\nRestart=always\nRestartSec=10\nStartLimitInterval=0\nUser=root\n\n[Install]\nWantedBy=multi-user.target\nEOF\nlog 'Setting permissions...'\nchown -R root:root /opt/iot-app || error_exit 'Failed to set permissions'\nlog 'Starting service...'\nsystemctl daemon-reload || error_exit 'Failed to reload systemd'\nsystemctl enable iot-subscriber || error_exit 'Failed to enable service'\nsystemctl start iot-subscriber || error_exit 'Failed to start service'\nlog 'Verifying service status...'\nsystemctl is-active iot-subscriber || error_exit 'Service not running'\nlog 'User-data script completed successfully'"
+       ]
+      ]
+     }
+    }
+   },
+   "DependsOn": [
+    "EC2RoleDefaultPolicy64E44857",
+    "EC2RoleF978FC1C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/SubscriberInstance/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/32OwQ6CQAxEv8V7qQoXr+rBeJLgB5h1rViBXbLtxhDCvwsaoydPrzOZTCfF5WqBi5l5SGIvVVLzGfujGlvBaJ16yU5GhFRwPQEkw020FenGCAGbBvvC1wTbq3sx9zXbbpLfa+9EjbOUB3/lmgYgm45PyMbA2u2Cj+0U+2/sXRlIBD5lv8XDAK914+6SXQkFiY/hnclNMA0phUkcorZRB8g7vXk3z3CZYja7C3MSolNuCIs3n8JnO/EYAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EC2Stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "PublisherInstanceId": {
+   "Description": "ID instancji EC2 publishera",
+   "Value": {
+    "Ref": "PublisherInstanceB7D10218"
+   }
+  },
+  "PublisherPublicIP": {
+   "Description": "Publiczne DNS publishera",
+   "Value": {
+    "Fn::GetAtt": [
+     "PublisherInstanceB7D10218",
+     "PublicDnsName"
+    ]
+   }
+  },
+  "PublisherPrivateIP": {
+   "Description": "Prywatne DNS publishera",
+   "Value": {
+    "Fn::GetAtt": [
+     "PublisherInstanceB7D10218",
+     "PrivateDnsName"
+    ]
+   }
+  },
+  "SubscriberInstanceId": {
+   "Description": "ID instancji EC2 subscribera",
+   "Value": {
+    "Ref": "SubscriberInstanceA7D92F33"
+   }
+  },
+  "SubscriberPublicIP": {
+   "Description": "Publiczne DNS subscribera",
+   "Value": {
+    "Fn::GetAtt": [
+     "SubscriberInstanceA7D92F33",
+     "PublicDnsName"
+    ]
+   }
+  },
+  "ConnectPublisherCommand": {
+   "Description": "Komenda do połączenia z Publisher EC2 przez Session Manager",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "aws ssm start-session --target ",
+      {
+       "Ref": "PublisherInstanceB7D10218"
+      }
+     ]
+    ]
+   }
+  },
+  "ConnectSubscriberCommand": {
+   "Description": "Komenda do połączenia z Subscriber EC2 przez Session Manager",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "aws ssm start-session --target ",
+      {
+       "Ref": "SubscriberInstanceA7D92F33"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

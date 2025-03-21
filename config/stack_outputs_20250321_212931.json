@@ -1,0 +1,33 @@
+{
+  "VPCStack": {
+    "ExportsOutputRefIoTVPCPrivateSubnet1Subnet93560337C621C750": "subnet-08ba6ba5aa925563d",
+    "VPCId": "vpc-0818c9bf283b75117",
+    "ExportsOutputFnGetAttIoTVPC8B2E4583CidrBlock7473E369": "10.0.0.0/16",
+    "ExportsOutputRefIoTVPCPublicSubnet1SubnetFA1B41BCB9589F81": "subnet-0f569ca690c7ab42c",
+    "ExportsOutputRefIoTVPC8B2E45835BD75DDA": "vpc-0818c9bf283b75117",
+    "PrivateSubnet2Id": "subnet-08e54bd23bbd811d0",
+    "PrivateSubnet1Id": "subnet-08ba6ba5aa925563d",
+    "ExportsOutputRefIoTVPCPrivateSubnet2Subnet857821200B67304C": "subnet-08e54bd23bbd811d0"
+  },
+  "MSKStack": {
+    "ExportsOutputFnGetAttMSKClusterBootstrapBrokersBootstrapBrokerStringTls38B7EB83BootstrapBrokerStringTls00DE15EC": "b-4.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-2.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-1.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094",
+    "ExportsOutputRefMSKCluster4E6A46C2CDCE4B06": "arn:aws:kafka:eu-central-1:412381744865:cluster/msk-mskstack/368292e0-518a-4994-82a9-aed16d45af8c-8",
+    "MSKBootstrapBrokers": "b-4.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-2.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-1.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094",
+    "ExportsOutputFnGetAttMSKSecurityGroupB5009346GroupIdBBBA6F75": "sg-0ff3d6bbb8284b544",
+    "MSKClusterArn": "arn:aws:kafka:eu-central-1:412381744865:cluster/msk-mskstack/368292e0-518a-4994-82a9-aed16d45af8c-8",
+    "BootstrapBrokersTls": "b-4.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-2.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094,b-1.mskmskstack.ydzs51.c8.kafka.eu-central-1.amazonaws.com:9094"
+  },
+  "BedrockStack": {
+    "BedrockRoleArn": "arn:aws:iam::412381744865:role/BedrockStack-BedrockServiceRole78EFE140-oStxgTqBs8OC",
+    "ExportsOutputFnGetAttBedrockServiceRole78EFE140ArnC95D2157": "arn:aws:iam::412381744865:role/BedrockStack-BedrockServiceRole78EFE140-oStxgTqBs8OC"
+  },
+  "EC2Stack": {
+    "PublisherPrivateIP": "ip-10-0-2-211.eu-central-1.compute.internal",
+    "PublisherInstanceId": "i-05a0b02429f5fa37a",
+    "PublisherPublicIP": "ec2-3-123-19-43.eu-central-1.compute.amazonaws.com",
+    "SubscriberInstanceId": "i-0393ad010c2337421",
+    "ConnectSubscriberCommand": "aws ssm start-session --target i-0393ad010c2337421",
+    "SubscriberPublicIP": "ec2-18-197-68-102.eu-central-1.compute.amazonaws.com",
+    "ConnectPublisherCommand": "aws ssm start-session --target i-05a0b02429f5fa37a"
+  }
+}

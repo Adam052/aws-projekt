@@ -1,0 +1,11 @@
+{
+  "acknowledged-issue-numbers": [
+    32775,
+    32775
+  ],
+  "availability-zones:account=412381744865:region=eu-central-1": [
+    "eu-central-1a",
+    "eu-central-1b",
+    "eu-central-1c"
+  ]
+}

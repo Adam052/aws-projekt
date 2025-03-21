@@ -1,0 +1,6 @@
+{
+  "BedrockStack": {
+    "BedrockRoleArn": "arn:aws:iam::412381744865:role/BedrockStack-BedrockServiceRole78EFE140-oStxgTqBs8OC",
+    "ExportsOutputFnGetAttBedrockServiceRole78EFE140ArnC95D2157": "arn:aws:iam::412381744865:role/BedrockStack-BedrockServiceRole78EFE140-oStxgTqBs8OC"
+  }
+}
